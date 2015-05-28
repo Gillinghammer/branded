@@ -7,6 +7,15 @@ class UsersController < Devise::RegistrationsController
     @users = User.all
   end
 
+  def show
+    @user = User.find(params[:id])
+    respond_to do |format|
+    # format.html # show.html.erb
+      format.xml  { render :xml => @user }
+      format.json { render :json => @user }
+    end
+  end
+
   # GET /users/new
   def new
     super
@@ -34,6 +43,7 @@ class UsersController < Devise::RegistrationsController
       respond_with resource
     end
     if resource.save
+      # resource.searches.build
       @company = Company.find_by name: resource.email.gsub(/.+@([^.]+).+/, '\1')
       if @company
         @company.users << resource
@@ -44,7 +54,6 @@ class UsersController < Devise::RegistrationsController
       end
       @company.save!
     end
-
 
     # @user = User.new(user_params)
     # respond_to do |format|

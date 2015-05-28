@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+gem 'sprockets'
+gem 'sprockets-es6', require: 'sprockets/es6'
+gem 'knockoutjs-rails'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'devise'
 gem "font-awesome-rails"

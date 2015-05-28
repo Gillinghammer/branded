@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   resources :companies
 
   devise_for :users, :controllers => {:registrations => "users"}
+  devise_scope :user do
+      get 'login' => 'devise/sessions#new'
+      get 'logout' => 'devise/sessions#destroy'
+      match 'users/:id', to: 'users#show', via: 'get'
+    end
+      
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

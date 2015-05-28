@@ -8,4 +8,15 @@ has_many :searches, dependent: :delete_all, validate: false
   def user_params
        params.require(:user).permit(:remember_me, :email, :password, :password_confirmation)
   end
+
+  # def to_jbuilder
+  #   Jbuilder.new do |json|
+  #     json.searches do
+  #       json.array! self.searches do |search|
+  #         json.child! search.to_jbuilder.attributes!
+  #       end
+  #     end
+  #   end
+  # end
+
 end

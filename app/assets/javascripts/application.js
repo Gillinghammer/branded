@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require knockout
+//= require knockout.mapping
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks

@@ -1,4 +1,4 @@
-json.array!(@companies) do |company|
-  json.extract! company, :id
-  json.url company_url(company, format: :json)
+json.companies @companies do |company|
+  json.(company, :id, :email_domain, :facebook_id, :twitter_id)
+  json.users company.users, partial: 'users/user', as: :user
 end
