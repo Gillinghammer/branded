@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  facebook: MyString
+  twitter: MyString
+  sentiment: 1
+  reach: 1
+  following_company: false
+  first_brand_interaction: 2015-05-26
+
+two:
+  email: MyString
+  facebook: MyString
+  twitter: MyString
+  sentiment: 1
+  reach: 1
+  following_company: false
+  first_brand_interaction: 2015-05-26

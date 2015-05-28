@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Branded</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class='container-fluid'>
+  <div class="info">
+    <h5><%= current_user.email if user_signed_in? %></h5>
+    <h5><strong><%= Company.find(current_user.company_id).name if user_signed_in? %></strong> <%= ": (#{Company.find(current_user.company_id).users.count})" if user_signed_in? %></h5>
+  </div>
+<%= yield %>
+<footer>
+</footer>
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+  <% end %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+</body>
+</html>
