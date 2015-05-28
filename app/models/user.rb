@@ -4,19 +4,22 @@ has_many :searches, dependent: :delete_all, validate: false
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  # attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  def get_company
+    Company.find(self.company_id).name
+  end
+
+  def get_company_facebook
+    Company.find(self.company_id).facebook_id
+  end
+
+  def get_company_twitter
+    Company.find(self.company_id).twitter_id
+  end
+
+  private
   def user_params
        params.require(:user).permit(:remember_me, :email, :password, :password_confirmation)
   end
-
-  # def to_jbuilder
-  #   Jbuilder.new do |json|
-  #     json.searches do
-  #       json.array! self.searches do |search|
-  #         json.child! search.to_jbuilder.attributes!
-  #       end
-  #     end
-  #   end
-  # end
 
 end

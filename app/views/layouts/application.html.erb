@@ -7,35 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body class='container-fluid' data-current="<%= current_user.id if current_user%>">
-  <p>
-      Name: 
-      <b data-bind="visible: !editing(), text: email, click: edit">&nbsp;</b>
-      <input data-bind="visible: editing, value: email, hasFocus: editing" />
-  </p>
-  <p><em>Click the name to edit it; click elsewhere to apply changes.</em></p>
+  <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
 
-  <!-- <p>First name: <input data-bind="
-                                  textInput: firstName,
-                                  disable: firstName
-                                  " /></p>
-  <p>Last name: <input data-bind="
-                                  textInput: lastName,
-                                  disable: lastName
-                                  " /></p> -->
+  <p>
+    User ID: <span data-bind="text: id"></span><br>
+    Email: <span data-bind="text: email"></span><br>
+    <!-- Company Name: <span data-bind="text: company"></span><br> -->
+  </p>
   <% if user_signed_in? %>
 
   <div class="navbar" id="navigation">
     <ul class="nav navbar-nav">
-      <% if Company.find(current_user.company_id).facebook_id %>
-        <li><a href="#"><strong>Facebook:</strong> <%= Company.find(current_user.company_id).facebook_id %><span class="sr-only">(current)</span></a></li>
-      <% else %>
-        <li><a href="#" data-social="facebook"><strong>Facebook:</strong> <%= "add your company's Facebook url" %><span class="sr-only">(current)</span></a></li>
-      <% end %>
-      <% if Company.find(current_user.company_id).twitter_id %>
-        <li><a href="#"><strong>Twitter:</strong> <%= Company.find(current_user.company_id).twitter_id %></a></li>
-      <% else %>
-        <li><a href="#" data-social="twitter"><strong>Twitter:</strong> <%= "and your company's Twitter handle" %></a></li>
-      <% end %>
+        <li><a href="#"><strong>Facebook:</strong> <span data-bind="text: company_facebook"></span></a></li>
+        <li><a href="#"><strong>Twitter:</strong>  <span data-bind="text: company_twitter"></span></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">

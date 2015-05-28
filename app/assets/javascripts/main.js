@@ -1,28 +1,30 @@
 $(function() {
 
-  // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
-  function CompanyViewModel(email) {
+  var myViewModel = {
+    id: ko.observable(0),
+    email: ko.observable('test@test.com'),
+    company: ko.observable('coke'),
+    company_facebook: ko.observable('facebook_url'),
+    company_twitter: ko.observable('twitter_handle')
+  };
+  ko.applyBindings(myViewModel);
+  getLoggedInData($('body').data('current'))
 
-    // Data
-        this.email = ko.observable(email);
-        this.editing = ko.observable(false);
-             
-        // Behaviors
-        this.edit = function() { this.editing(true) }
-  }
+  function getLoggedInData(userId) {
+    $.getJSON("http://localhost:3000/users/" + userId, function(data) { 
+      myViewModel.id(data.id).email(data.email).company(data.company).company_facebook(data.company_facebook).company_twitter(data.company_twitter)
+    });
+  };
 
-  var userId = $("body").data('current')
-  $.getJSON("http://localhost:3000/users/" + userId, function(data) { 
-    
-    console.log(data.email)
-
-    // Activates knockout.js
-    ko.applyBindings(new CompanyViewModel(data.email));
-   
-      // Now use this data to update your view models, 
-      // and Knockout will update your UI automatically 
-  })
-
-  
+  // Editable Text object:
+  function EditableText(text, editable) {
+      var self = this;
+      self.text = ko.observable(text);
+      self.editing = ko.observable(editable);
+  };
 
 });
+
+
+
+
