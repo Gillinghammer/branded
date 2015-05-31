@@ -2,22 +2,25 @@
   <div class="panel panel-primary" id="navigation">
     <div class="panel-heading">
         <div class="row-fluid">
-          <h3 class="panel-title"><span data-bind="text: company_name, visible: !edit_mode()"></span>
-            <input type="text" name="company_name" data-bind="textInput: company_name, visible: edit_mode(), attr: { placeholder: company_name }"/></h3>
+          <h3 class="panel-title"><span ng-hide="editMode">{{company.name}}</span>
+            <input type="text" name="{{company.name}}" placeholder="{{company.name}}" ng-show="editMode" />
+          </h3>
         </div>
       </div>
       <div class="panel-body">
-        <div class="col-xs-4"><strong>Facebook:</strong> <span data-bind="text: company_facebook, visible: !edit_mode() "></span>
-          <input type="text" name="facebook_id" data-bind="textInput: company_facebook, visible: edit_mode(), attr: { placeholder: company_facebook }"/></div>
-        <div class="col-xs-4"><strong>Twitter:</strong> <span data-bind="text: company_twitter, visible: !edit_mode() "></span>
-          <input type="text" name="twitter_id" data-bind="textInput: company_twitter, visible: edit_mode(), attr: { placeholder: company_twitter }"/></div>
+        <div class="col-xs-4"><strong>Facebook:</strong> <span ng-hide="editMode">{{company.facebook}}</span>
+          <input type="text" name="{{company.facebook}}" placeholder="{{company.facebook}}" ng-show="editMode" />
+        </div>
+        <div class="col-xs-4"><strong>Twitter:</strong> <span ng-hide="editMode">{{company.twitter}}</span>
+          <input type="text" name="{{company.twitter}}" placeholder="{{company.twitter}}" ng-show="editMode" />
+        </div>
         <div class="col-xs-4">
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong><span data-bind="visible: !edit_mode()">Settings<span class="caret"></span></span></strong></a>
-              <h4><a id="updateCompany" href="" class="label label-success" data-bind="click: edit_mode( !edit_mode() ),visible: edit_mode()"><strong>Save</strong></a></h4>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong><span ng-hide="editMode">Settings<span class="caret"></span></span></strong></a>
+              <h4><a  ng-show="editMode" ng-click="toggleEditMode()" id="updateCompany" href="" class="label label-success"><strong>Save</strong></a></h4>
               <ul class="dropdown-menu" role="menu">
                 <li><%= link_to('manage users', root_path) %></li>
-                <li><a href="" data-bind="click: edit_mode( !edit_mode() ),visible: !edit_mode()">edit company</a></li>
+                <li><a href="" ng-click="toggleEditMode()">edit company</a></li>
                 <li class="divider"></li>
                 <li class="text-center"><%= link_to('goodbye', destroy_user_session_path, :method => :delete) %></li>
               </ul>

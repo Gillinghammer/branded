@@ -1,40 +1,29 @@
-$(function() {
-
-  var companyViewModel = function(userId) {
-    var self = this;
-    self.company_id = ko.observable(1); 
-    self.company_name = ko.observable('name');
-    self.company_facebook = ko.observable('facebook');
-    self.company_twitter = ko.observable('twitter');
-    self.edit_mode = ko.observable(false);
-    self.getCompanyInfo = function() {
-      $.getJSON("http://localhost:3000/users/" + $('body').data('current'), function(company_data) {
-          self.company_id(company_data.company_id);
-          self.company_name(company_data.company_name);
-          self.company_facebook(company_data.company_facebook);
-          self.company_twitter(company_data.company_twitter);
-          self.edit_mode(false);
-      });
-    }
-    $( "#navigation" ).delegate( "#updateCompany", "click", function() {
-      console.log(ko.toJSON(self))
-      $.ajax({
-        url: "http://localhost:3000/companies/" + self.company_id(),
-        type: 'PUT',
-        data: ko.toJSON(self),
-        success: function(data) {
-          console.log(data)
-        }
-      });
-    });
-    self.getCompanyInfo();
-  };
-
-  ko.applyBindings(new companyViewModel(), document.getElementById("navigation"));
-
-
+var app = angular.module('Qarma', ["xeditable"]);
+app.run(function($rootScope) {
+  $rootScope.current_user_id = $('body').data('current');
 });
 
+app.controller('MainCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+  // $http.get("http://localhost:3000/users/6").success();
+  $scope.company = {
+     name: 'Default',
+     facebook: 'fb',
+     twitter: '@twitter',
+     id: '1'
+   };
+   $scope.editMode = false;
+  $scope.toggleEditMode = function() {
+    $scope.editMode = !$scope.editMode;
+  }
 
-
-
+  $http.get('http://localhost:3000/users/' + $rootScope.current_user_id + '.json')
+    .then(function(result){
+      console.log("req successful")
+      $scope.company = {
+         name: result.data.company_name,
+         facebook: result.data.company_facebook,
+         twitter: result.data.company_twitter,
+         id: result.data.company_id
+       };
+    });
+}]);

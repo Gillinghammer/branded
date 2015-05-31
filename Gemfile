@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'angularjs-rails'
 gem 'sprockets'
 gem 'sprockets-es6', require: 'sprockets/es6'
 gem 'knockoutjs-rails'
