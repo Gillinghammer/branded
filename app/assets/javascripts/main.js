@@ -1,27 +1,37 @@
 $(function() {
 
-  var myViewModel = {
-    id: ko.observable(0),
-    email: ko.observable('test@test.com'),
-    company: ko.observable('coke'),
-    company_facebook: ko.observable('facebook_url'),
-    company_twitter: ko.observable('twitter_handle')
-  };
-  ko.applyBindings(myViewModel);
-  getLoggedInData($('body').data('current'))
-
-  function getLoggedInData(userId) {
-    $.getJSON("http://localhost:3000/users/" + userId, function(data) { 
-      myViewModel.id(data.id).email(data.email).company(data.company).company_facebook(data.company_facebook).company_twitter(data.company_twitter)
+  var companyViewModel = function(userId) {
+    var self = this;
+    self.company_id = ko.observable(1); 
+    self.company_name = ko.observable('name');
+    self.company_facebook = ko.observable('facebook');
+    self.company_twitter = ko.observable('twitter');
+    self.edit_mode = ko.observable(false);
+    self.getCompanyInfo = function() {
+      $.getJSON("http://localhost:3000/users/" + $('body').data('current'), function(company_data) {
+          self.company_id(company_data.company_id);
+          self.company_name(company_data.company_name);
+          self.company_facebook(company_data.company_facebook);
+          self.company_twitter(company_data.company_twitter);
+          self.edit_mode(false);
+      });
+    }
+    $( "#navigation" ).delegate( "#updateCompany", "click", function() {
+      console.log(ko.toJSON(self))
+      $.ajax({
+        url: "http://localhost:3000/companies/" + self.company_id(),
+        type: 'PUT',
+        data: ko.toJSON(self),
+        success: function(data) {
+          console.log(data)
+        }
+      });
     });
+    self.getCompanyInfo();
   };
 
-  // Editable Text object:
-  function EditableText(text, editable) {
-      var self = this;
-      self.text = ko.observable(text);
-      self.editing = ko.observable(editable);
-  };
+  ko.applyBindings(new companyViewModel(), document.getElementById("navigation"));
+
 
 });
 

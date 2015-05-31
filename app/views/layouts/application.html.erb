@@ -7,42 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body class='container-fluid' data-current="<%= current_user.id if current_user%>">
-  <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
-
-  <p>
-    User ID: <span data-bind="text: id"></span><br>
-    Email: <span data-bind="text: email"></span><br>
-    <!-- Company Name: <span data-bind="text: company"></span><br> -->
-  </p>
-  <% if user_signed_in? %>
-
-  <div class="navbar" id="navigation">
-    <ul class="nav navbar-nav">
-        <li><a href="#"><strong>Facebook:</strong> <span data-bind="text: company_facebook"></span></a></li>
-        <li><a href="#"><strong>Twitter:</strong>  <span data-bind="text: company_twitter"></span></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-          <li><%= link_to(current_user.email, root_path) %></li>
-          <li><%= link_to('manage users', root_path) %></li>
-          <li class="divider"></li>
-          <li><%= link_to('goodbye', destroy_user_session_path, :method => :delete) %></li>
-        </ul>
-      </li>
-    </ul>
+  <div class="page-header text-center">
+    <h1>Qarma <small>now this is social</small></h1>
   </div>
-
-  <% end %>
   <%= yield %>
   <footer>
+    <!-- <h5>signed in as: <span href="" data-bind="text: email"></span> <small><%= link_to('sign out', destroy_user_session_path, :method => :delete) %></small></h5> -->
     <h5><%= link_to('Login', new_user_session_path) unless user_signed_in?  %></h5>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
   </footer>
-  <script type="text/javascript">
-    // ko.applyBindings(companyModel);
-  </script>
 </body>
 </html>
