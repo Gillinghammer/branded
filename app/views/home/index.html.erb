@@ -2,31 +2,30 @@
   <div class="panel panel-primary" id="navigation">
     <div class="panel-heading">
         <div class="row-fluid">
-          <h3 class="panel-title"><span ng-hide="editMode">{{company.name}}</span>
-            <input type="text" name="{{company.name}}" placeholder="{{company.name}}" ng-show="editMode" />
+          <h3 class="panel-title">
+            <span ng-hide="editMode" editable-text="company.name">{{company.name || 'company name'}}</span>
           </h3>
         </div>
       </div>
       <div class="panel-body">
-        <div class="col-xs-4"><strong>Facebook:</strong> <span ng-hide="editMode">{{company.facebook}}</span>
-          <input type="text" name="{{company.facebook}}" placeholder="{{company.facebook}}" ng-show="editMode" />
+        <div class="col-xs-4"><strong>Facebook:</strong>
+          <span ng-hide="editMode" editable-text="company.facebook_id">{{company.facebook_id || 'facebook url'}}</span>
         </div>
-        <div class="col-xs-4"><strong>Twitter:</strong> <span ng-hide="editMode">{{company.twitter}}</span>
-          <input type="text" name="{{company.twitter}}" placeholder="{{company.twitter}}" ng-show="editMode" />
+        <div class="col-xs-4"><strong>Twitter:</strong>
+          <span ng-hide="editMode" editable-text="company.twitter_id">{{company.twitter_id || 'twitter handle'}}</span>
         </div>
         <div class="col-xs-4">
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong><span ng-hide="editMode">Settings<span class="caret"></span></span></strong></a>
-              <h4><a  ng-show="editMode" ng-click="toggleEditMode()" id="updateCompany" href="" class="label label-success"><strong>Save</strong></a></h4>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Settings<span class="caret"></span></strong></a>
               <ul class="dropdown-menu" role="menu">
                 <li><%= link_to('manage users', root_path) %></li>
-                <li><a href="" ng-click="toggleEditMode()">edit company</a></li>
                 <li class="divider"></li>
                 <li class="text-center"><%= link_to('goodbye', destroy_user_session_path, :method => :delete) %></li>
               </ul>
             </div
         </div>
       </div>
+      <button ng-click="updateCompany()">Update Company</button>
   </div>
   <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
   <div id="searchForm" class="col-xs-12 well well-lg">

@@ -9,16 +9,16 @@ has_many :searches, dependent: :delete_all, validate: false
     Company.find(self.company_id).name
   end
 
-  def get_company_id
-    Company.find(self.company_id).id
-  end
-
   def get_company_facebook
     Company.find(self.company_id).facebook_id
   end
 
   def get_company_twitter
     Company.find(self.company_id).twitter_id
+  end
+
+  def get_company_domain
+    Company.find(self.company_id).email_domain
   end
 
   private

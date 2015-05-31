@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_company
 
   # GET /companies
   # GET /companies.json
@@ -7,18 +7,9 @@ class CompaniesController < ApplicationController
     @companies = Company.all
   end
 
-  # GET /companies/1
-  # GET /companies/1.json
-  def show
-  end
-
   # GET /companies/new
   def new
-    @company = Company.new
-  end
-
-  # GET /companies/1/edit
-  def edit
+    @company = Company.new(company_params)
   end
 
   # POST /companies
@@ -27,7 +18,7 @@ class CompaniesController < ApplicationController
     @company = Company.create(company_params)
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new }
@@ -39,16 +30,17 @@ class CompaniesController < ApplicationController
   # PATCH/PUT /companies/1
   # PATCH/PUT /companies/1.json
   def update
+    @company = Company.find(params[:id])
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to @company, notice: 'Company was successfully updated.' }
-        format.json { render :show, status: :ok, location: @company }
+        format.json { render json: @company }
       else
         format.html { render :edit }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # DELETE /companies/1
   # DELETE /companies/1.json
@@ -68,6 +60,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params[:company]
+      params.require(:company).permit(:facebook_id, :twitter_id, :name)
     end
 end
