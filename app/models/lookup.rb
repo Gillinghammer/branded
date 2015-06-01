@@ -1,4 +1,5 @@
 class Lookup < ActiveRecord::Base
+  has_many :searches, foreign_key: "lookup_id", dependent: :destroy
   after_initialize :poll_clearbit
   extend FriendlyId
   friendly_id :email

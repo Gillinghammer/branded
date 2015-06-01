@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-has_many :searches, dependent: :delete_all, validate: false
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+has_many :searches, foreign_key: "user_id", dependent: :destroy
+has_many :searches, foreign_key: "lookup_id", dependent: :destroy
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
