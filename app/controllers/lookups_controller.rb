@@ -19,9 +19,13 @@ class LookupsController < ApplicationController
   end
 
   def find_person
-      @lookup = Lookup.friendly.find params[:email]
-      puts @lookup.clearbit_result
-      render :json => @lookup
+    begin
+    @lookup = Lookup.friendly.find params[:email]
+    puts @lookup.clearbit_result
+    # render :json => @lookup
+    rescue StandardError => error
+      render json: {} #{"errors": {"status": 404, "msg": "Lookup not found"}}
+    end
   end
 
   # GET /lookups/1/edit
@@ -32,10 +36,9 @@ class LookupsController < ApplicationController
   # POST /lookups.json
   def create
     @lookup = Lookup.new(lookup_params)
-
     respond_to do |format|
       if @lookup.save
-        format.json { render json: @lookups }
+        format.json { render json: @lookup.to_json }
       else
         format.html { render :new }
         format.json { render json: @lookup.errors, status: :unprocessable_entity }

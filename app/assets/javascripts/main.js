@@ -35,18 +35,35 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$http', function($rootScope
     twitter: ""
   }
 
-  $scope.lookupPerson = function(email) {
-
-    $http.get('http://localhost:3000/lookups/find/' + $scope.candidate.email)
+  $scope.addLookup = function(email) {
+    console.log('Lookup Not found, creating one instead');
+    $http.post('http://localhost:3000/lookups.json',{email: email})
       .then(function(res){
-        console.log("Found lookup record with email", res)
-      })
+        console.log("Adding lookup to database")
+        // recursion to identify newly created lookup
+        $scope.lookupPerson(email);
+      });
+  };
 
+  $scope.createSearch = function(lookup) {
+    console.log("Creating new search for UserId: " + $rootScope.current_user_id + "and LookupId: ", lookup)
+    $http.post("http://localhost:3000/searches.json", {"search": {"lookup_id": lookup.data.id, "user_id": $rootScope.current_user_id}})
+      .then(function(res){
+        console.log("Search created")
+      });
+  }
 
-    // $http.post('http://localhost:3000/lookups.json',{email: email})
-    //   .then(function(res){
-    //     console.log(res)
-    //   })
+  $scope.lookupPerson = function(email) {
+    $scope.person_response = '';
+    $http.get('http://localhost:3000/lookups/find/' + $scope.candidate.email)
+      .then(function(response) {
+        if(response.data.id != undefined) {
+          console.log("Lookup found")
+          $scope.createSearch(response)
+        } else {
+          $scope.addLookup(email)
+        };
+      });
   }
 
 }]);

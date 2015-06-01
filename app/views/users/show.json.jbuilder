@@ -4,4 +4,3 @@ json.company_id @user.company_id
 json.company_facebook @user.get_company_facebook
 json.company_twitter @user.get_company_twitter
 json.company_domain @user.get_company_domain
-json.searches @user.searches, partial: 'searches/search', as: :search

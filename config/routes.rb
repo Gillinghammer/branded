@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :searches
   resources :lookups
   get 'lookups/find/:email' => 'lookups#find_person', :email => /.*/
+  get "/404" => "errors#not_found"
+  get "/500" => "errors#exception"
 
   devise_for :users, :controllers => {:registrations => "users"}
   devise_scope :user do

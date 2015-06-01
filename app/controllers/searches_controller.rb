@@ -10,6 +10,7 @@ class SearchesController < ApplicationController
   # GET /searches/1
   # GET /searches/1.json
   def show
+    @search = Search.new(set_search)
   end
 
   # GET /searches/new
@@ -24,12 +25,10 @@ class SearchesController < ApplicationController
   # POST /searches
   # POST /searches.json
   def create
-    @search = Search.create(search_params)
-
+    @search = Search.new(search_params)
     respond_to do |format|
       if @search.save
-        format.html { redirect_to @search, notice: 'Search was successfully created.' }
-        format.json { render :show, status: :created, location: @search }
+        format.json { render json: @search }
       else
         format.html { render :new }
         format.json { render json: @search.errors, status: :unprocessable_entity }
@@ -69,6 +68,6 @@ class SearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def search_params
-      params.require(:search).permit(:user_id, :lookup_id)
+      params.require(:search).permit(:lookup_id, :user_id)
     end
 end
