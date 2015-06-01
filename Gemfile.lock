@@ -54,6 +54,8 @@ GEM
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
+    clearbit (0.1.5)
+      nestful (~> 1.0.7)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -74,6 +76,8 @@ GEM
     execjs (2.5.2)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
+    friendly_id (5.0.5)
+      activerecord (>= 4.0.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -95,6 +99,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.7.0)
     multi_json (1.11.0)
+    nestful (1.0.7)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -175,9 +180,11 @@ DEPENDENCIES
   angularjs-rails
   bootstrap-sass (~> 3.3.4)
   byebug
+  clearbit
   coffee-rails (~> 4.1.0)
   devise
   font-awesome-rails
+  friendly_id (~> 5.0.0)
   jbuilder (~> 2.0)
   jquery-rails
   knockoutjs-rails

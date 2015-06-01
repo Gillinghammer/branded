@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get '/' => 'home#index'
   resources :companies
   resources :searches
+  resources :lookups
+  get 'lookups/find/:email' => 'lookups#find_person', :email => /.*/
 
   devise_for :users, :controllers => {:registrations => "users"}
   devise_scope :user do

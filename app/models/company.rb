@@ -3,9 +3,7 @@ class Company < ActiveRecord::Base
 
   private
   def company_params
-    put "company params??"
     params.require(:company).permit(:facebook_id)
-
   end
 
 end

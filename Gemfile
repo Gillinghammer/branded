@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'friendly_id', '~> 5.0.0'
+gem 'clearbit'
 gem 'angularjs-rails'
 gem 'sprockets'
 gem 'sprockets-es6', require: 'sprockets/es6'

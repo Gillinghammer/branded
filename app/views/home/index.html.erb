@@ -3,16 +3,16 @@
     <div class="panel-heading">
         <div class="row-fluid">
           <h3 class="panel-title">
-            <span ng-hide="editMode" editable-text="company.name">{{company.name || 'company name'}}</span>
+            <span editable-text="company.name" ng-model="company.name" onbeforesave="updateCompany()">{{company.name || 'company name'}}</span>
           </h3>
         </div>
       </div>
       <div class="panel-body">
         <div class="col-xs-4"><strong>Facebook:</strong>
-          <span ng-hide="editMode" editable-text="company.facebook_id">{{company.facebook_id || 'facebook url'}}</span>
+          <span editable-text="company.facebook_id"  onbeforesave="updateCompany()">{{company.facebook_id || 'facebook url'}}</span>
         </div>
         <div class="col-xs-4"><strong>Twitter:</strong>
-          <span ng-hide="editMode" editable-text="company.twitter_id">{{company.twitter_id || 'twitter handle'}}</span>
+          <span editable-text="company.twitter_id" onbeforesave="updateCompany()">{{company.twitter_id || 'twitter handle'}}</span>
         </div>
         <div class="col-xs-4">
             <div class="dropdown">
@@ -25,28 +25,27 @@
             </div
         </div>
       </div>
-      <button ng-click="updateCompany()">Update Company</button>
+      <!-- <button ng-click="updateCompany()">Update Company</button> -->
   </div>
-  <pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
   <div id="searchForm" class="col-xs-12 well well-lg">
     <form class="row-fluid">
       <p class="lead text-center">Provide your candidate's email and social networks to see information.</p>
       <div class="form-group col-xs-12">
         <div class="input-group input-group-lg">
           <span class="input-group-addon" id="emailaddress"><i class="fa fa-envelope fa-lg"></i></span>
-          <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Candidate Email" ng-model="candidate.email" ng-blur="lookupPerson(candidate.email)" aria-describedby="basic-addon1">
         </div>
       </div>
       <div class="form-group col-xs-12">
         <div class="input-group input-group-lg">
           <span class="input-group-addon" id="facebook_id"><i class="fa fa-facebook-square fa-lg"></i></span>
-          <input type="text" class="form-control" placeholder="Facebook" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Candidate Facebook" ng-model="candidate.facebook" aria-describedby="basic-addon1">
         </div>
       </div>
       <div class="form-group col-xs-12">
         <div class="input-group input-group-lg">
           <span class="input-group-addon" id="twitter_id"><i class="fa fa-twitter-square fa-lg"></i></span>
-          <input type="text" class="form-control" placeholder="Twitter" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Canidate Twitter" ng-model="candidate.twitter" aria-describedby="basic-addon1">
         </div>
       </div>
       <div class="form-group col-xs-12">

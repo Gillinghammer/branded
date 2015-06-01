@@ -12,7 +12,6 @@
   </div>
   <%= yield %>
   <footer>
-    <!-- <h5>signed in as: <span href="" data-bind="text: email"></span> <small><%= link_to('sign out', destroy_user_session_path, :method => :delete) %></small></h5> -->
     <h5><%= link_to('Login', new_user_session_path) unless user_signed_in?  %></h5>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
