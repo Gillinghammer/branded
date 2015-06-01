@@ -53,4 +53,11 @@
       </div>
     </form>
   </div>
+  <div id="searches" class="col-xs-12">
+    <div class="row-fluid" ng-repeat="search in searches">
+      <h3>Email: {{search.email}}</h3>
+      <h3>Facebook: <a href="http://www.facebook.com/{{search.facebook}}" target="_blank">{{search.facebook}}</a></h3>
+      <h3>Twitter: <a href="http://www.twitter.com/@{{search.twitter}}" target="_blank">{{search.twitter}}</a></h3>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 has_many :searches, foreign_key: "user_id", dependent: :destroy
-has_many :searches, foreign_key: "lookup_id", dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

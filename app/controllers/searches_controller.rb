@@ -28,6 +28,7 @@ class SearchesController < ApplicationController
     @search = Search.new(search_params)
     respond_to do |format|
       if @search.save
+        @search.copy_clearbit
         format.json { render json: @search }
       else
         format.html { render :new }
@@ -68,6 +69,6 @@ class SearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def search_params
-      params.require(:search).permit(:lookup_id, :user_id)
+      params.require(:search).permit(:lookup_id, :user_id, :facebook, :twitter, :email, :reach)
     end
 end

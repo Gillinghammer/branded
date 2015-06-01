@@ -12,7 +12,6 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$http', function($rootScope
   // Load data
   $http.get('http://localhost:3000/users/' + $rootScope.current_user_id + '.json')
     .then(function(result){
-      console.log("req successful")
       $scope.company = {
          name: result.data.company_name,
          facebook_id: result.data.company_facebook,
@@ -33,6 +32,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$http', function($rootScope
     email: "",
     facebook: "",
     twitter: ""
+  }
+
+  $scope.getSearches = function() {
+    $http.get('http://localhost:3000/searches.json')
+      .then(function(res){
+        console.log("Searches", res)
+        $scope.searches = res.data
+      });
   }
 
   $scope.addLookup = function(email) {
@@ -65,5 +72,7 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$http', function($rootScope
         };
       });
   }
+
+  $scope.getSearches();
 
 }]);

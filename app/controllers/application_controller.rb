@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   respond_to :html, :json
-  require 'clearbit'
-  Clearbit.key = ENV["CLEARBIT_KEY"]
-
+  require 'Clearbit'
+  Clearbit.key = '3e5053bd16c6a53223f5bd1c2d3669cd'
   after_filter :set_csrf_cookie_for_ng
 
   def set_csrf_cookie_for_ng

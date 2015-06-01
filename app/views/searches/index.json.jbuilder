@@ -1,4 +1,5 @@
-json.array!(@searches) do |search|
-  json.extract! search, :id
-  json.url search_url(search, format: :json)
+json.array! @searches do |search|
+  json.facebook search.facebook
+  json.twitter search.twitter
+  json.email search.email
 end
